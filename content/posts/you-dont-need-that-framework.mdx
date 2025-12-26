@@ -1,0 +1,107 @@
+---
+title: "Hot Take: You Don't Need That Framework"
+description: "Real talk about tech stack choices and why simpler is usually better"
+date: "2024-12-05"
+author: "Alex"
+tags: ["web dev", "hot takes", "frameworks"]
+---
+
+## The Framework Industrial Complex
+
+Every week there's a new JavaScript framework promising to solve all your problems. Astro, SolidJS, Qwik, Svelte 5, the list goes on.
+
+And look, they're all impressive. The engineering is incredible. But can we be honest for a second?
+
+**You probably don't need any of them.**
+
+## The Real Problem
+
+Developers love shiny new tools. It's not even our fault - we're wired this way. New framework drops, Twitter goes crazy, you feel FOMO, you rebuild your portfolio for the 47th time.
+
+But here's what nobody wants to admit: The framework isn't the problem. Your app isn't slow because you're using React instead of Solid. Your startup didn't fail because you picked Vue over Svelte.
+
+### What Actually Matters
+
+```jsx
+// This is fast enough for 99% of apps
+function TodoList({ todos }) {
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li key={todo.id}>{todo.text}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+No virtual DOM optimization. No fine-grained reactivity. No compiler magic. Just... working code.
+
+## When Frameworks Matter (Spoiler: Rarely)
+
+You need a specialized framework if:
+
+- You're building the next Figma (you're not)
+- You have 10M+ users with actual performance issues (you don't)
+- You're working on a team with specific requirements (maybe)
+
+For everyone else? Pick boring technology and ship features.
+
+## The Boring Stack is Undefeated
+
+My hot take stack for 2024:
+
+- **Next.js**: It's boring now, which means it works
+- **Tailwind**: Write CSS without writing CSS
+- **TypeScript**: Because JavaScript without types is anxiety
+- **Postgres**: Relational databases still hit different
+
+Nothing bleeding edge. Nothing that requires explaining in interviews. Just tools that work.
+
+## But What About Performance?
+
+"But my React app is 300kb!"
+
+Cool. You know what's slower than a 300kb bundle?
+
+- Not shipping
+- Premature optimization
+- Rewriting your entire app in a new framework
+
+Ship first. Optimize later. If you actually get users (most don't), THEN worry about bundle size.
+
+## The Real Speed Optimization
+
+Want your app to feel fast? Here's the actual playbook:
+
+1. Use server-side rendering
+2. Lazy load what you can
+3. Optimize images (seriously, just do this)
+4. Add loading states
+5. Ship features people want
+
+Notice how "rewrite in Rust" isn't on that list?
+
+## Stop Framework Hopping
+
+I've wasted MONTHS of my life rewriting projects in new frameworks. Every time thinking "this is the one."
+
+Spoiler: It never is. The framework doesn't matter. Your execution does.
+
+Pick something stable, learn it deeply, and build things people want. That's it. That's the tweet.
+
+## When You Should Try New Things
+
+Don't get me wrong - experiment! Learn new frameworks! It's fun and you'll grow as a developer.
+
+Just don't confuse learning with shipping. Side projects are for trying Bun and Deno. Production apps are for boring, stable tech.
+
+## The Truth
+
+The best framework is the one you can ship with today. Not the one you'll spend next month learning.
+
+Stop optimizing for Twitter clout. Start optimizing for users. Pick Next.js, build something cool, and move on with your life.
+
+The framework wars are a distraction. While everyone's debating reactivity models, someone else is shipping features and getting users.
+
+Don't be the person with takes. Be the person with products. 📦
