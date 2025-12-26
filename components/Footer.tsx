@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-5xl mx-auto px-6 py-12">
         <div className="flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-sm text-zinc-600 dark:text-zinc-400">
-            © {currentYear} Vibe Check. Built with Next.js & Tailwind.
+            © {currentYear} CodedByGK ❤️
           </div>
           <div className="flex gap-6">
             <a
