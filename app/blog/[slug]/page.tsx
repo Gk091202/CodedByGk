@@ -96,7 +96,7 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
       {/* Share Section */}
       <div className="mt-16 pt-8 border-t border-light-border dark:border-dark-border">
         <ShareButtons
-          url={`https://yourdomain.vercel.app/blog/${post.slug}`}
+          url={`https://www.codedbygk.tech/blog/${post.slug}`}
           title={post.metadata.title}
         />
       </div>

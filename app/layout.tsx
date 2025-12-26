@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | CodedByGK",
   },
   description: "Real talk, hot takes, and everything in between",
-  metadataBase: new URL("https://yourdomain.vercel.app"),
+  metadataBase: new URL("https://www.codedbygk.tech"),
   icons: {
     icon: "/fav.jpg",
   },
