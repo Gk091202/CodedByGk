@@ -1,6 +1,11 @@
 import Link from "next/link";
 import { getBlogPosts } from "@/lib/blog";
 import BlogCard from "@/components/BlogCard";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Home",
+};
 
 export default function Home() {
   const posts = getBlogPosts().slice(0, 3);

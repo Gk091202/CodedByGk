@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact - Vibe Check",
+  title: "Contact",
   description: "Get in touch",
 };
 
@@ -16,7 +16,11 @@ export default function ContactPage() {
         message.
       </p>
 
-      <form className="space-y-6">
+      <form
+        action="https://formspree.io/f/xkgbvkqv"
+        method="POST"
+        className="space-y-6"
+      >
         <div>
           <label htmlFor="name" className="block text-sm font-medium mb-2">
             Name
@@ -25,6 +29,7 @@ export default function ContactPage() {
             type="text"
             id="name"
             name="name"
+            required
             className="w-full px-4 py-3 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all"
             placeholder="Your name"
           />
@@ -38,6 +43,7 @@ export default function ContactPage() {
             type="email"
             id="email"
             name="email"
+            required
             className="w-full px-4 py-3 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all"
             placeholder="your@email.com"
           />
@@ -51,6 +57,7 @@ export default function ContactPage() {
             id="message"
             name="message"
             rows={6}
+            required
             className="w-full px-4 py-3 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-primary transition-all resize-none"
             placeholder="What's on your mind?"
           />
@@ -66,8 +73,8 @@ export default function ContactPage() {
 
       <div className="mt-12 pt-8 border-t border-light-border dark:border-dark-border">
         <p className="text-sm text-zinc-600 dark:text-zinc-400">
-          This form is UI only. Connect it to your preferred backend service
-          (Formspree, Basin, etc.) or email service to make it functional.
+          Messages are sent securely via Formspree. You'll receive an email
+          notification for each submission.
         </p>
       </div>
     </div>

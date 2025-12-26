@@ -16,17 +16,23 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Vibe Check - Gen-Z Blog",
+  title: {
+    default: "CodedByGK - Tech Blog",
+    template: "%s | CodedByGK",
+  },
   description: "Real talk, hot takes, and everything in between",
   metadataBase: new URL("https://yourdomain.vercel.app"),
+  icons: {
+    icon: "/fav.jpg",
+  },
   openGraph: {
-    title: "Vibe Check - Gen-Z Blog",
+    title: "CodedByGK - Tech Blog",
     description: "Real talk, hot takes, and everything in between",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vibe Check - Gen-Z Blog",
+    title: "CodedByGK - Tech Blog",
     description: "Real talk, hot takes, and everything in between",
   },
 };

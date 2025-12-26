@@ -23,7 +23,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${post.metadata.title} - Vibe Check`,
+    title: post.metadata.title,
     description: post.metadata.description,
     openGraph: {
       title: post.metadata.title,
