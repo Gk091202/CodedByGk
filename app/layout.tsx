@@ -23,18 +23,67 @@ export const metadata: Metadata = {
   },
   description: "Real talk, hot takes, and everything in between",
   metadataBase: new URL("https://www.codedbygk.tech"),
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/fav.jpg",
   },
+  keywords: [
+    "tech blog",
+    "web development",
+    "programming",
+    "coding",
+    "software engineering",
+    "tech insights",
+  ],
+  authors: [{ name: "GK", url: "https://www.codedbygk.tech" }],
+  creator: "GK",
   openGraph: {
     title: "CodedByGK - Tech Blog",
     description: "Real talk, hot takes, and everything in between",
     type: "website",
+    locale: "en_US",
+    siteName: "CodedByGK",
   },
   twitter: {
     card: "summary_large_image",
     title: "CodedByGK - Tech Blog",
     description: "Real talk, hot takes, and everything in between",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    // Add your verification codes here when you have them
+    // google: "your-google-verification-code",
+    // yandex: "your-yandex-verification-code",
+  },
+};
+
+// Site-wide JSON-LD structured data
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "CodedByGK",
+  description: "Real talk, hot takes, and everything in between",
+  url: "https://www.codedbygk.tech",
+  author: {
+    "@type": "Person",
+    name: "GK",
+  },
+  potentialAction: {
+    "@type": "SearchAction",
+    target: "https://www.codedbygk.tech/blog?q={search_term_string}",
+    "query-input": "required name=search_term_string",
   },
 };
 
@@ -45,6 +94,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Site-wide JSON-LD structured data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}
       >

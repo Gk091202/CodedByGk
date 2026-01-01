@@ -23,16 +23,56 @@ export async function generateMetadata({
     return {};
   }
 
+  const url = `https://www.codedbygk.tech/blog/${params.slug}`;
+
   return {
     title: post.metadata.title,
     description: post.metadata.description,
+    alternates: {
+      canonical: url,
+    },
     openGraph: {
       title: post.metadata.title,
       description: post.metadata.description,
       type: "article",
       publishedTime: post.metadata.date,
       authors: [post.metadata.author],
+      url: url,
     },
+    twitter: {
+      card: "summary_large_image",
+      title: post.metadata.title,
+      description: post.metadata.description,
+    },
+  };
+}
+
+// JSON-LD structured data for blog posts
+function generateJsonLd(post: ReturnType<typeof getPostBySlug>, slug: string) {
+  if (!post) return null;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.metadata.title,
+    description: post.metadata.description,
+    author: {
+      "@type": "Person",
+      name: post.metadata.author,
+    },
+    datePublished: post.metadata.date,
+    dateModified: post.metadata.date,
+    url: `https://www.codedbygk.tech/blog/${slug}`,
+    publisher: {
+      "@type": "Organization",
+      name: "CodedByGK",
+      url: "https://www.codedbygk.tech",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://www.codedbygk.tech/blog/${slug}`,
+    },
+    keywords: post.metadata.tags.join(", "),
   };
 }
 
@@ -43,41 +83,51 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
     notFound();
   }
 
-  return (
-    <article className="px-6 py-16 max-w-3xl mx-auto">
-      {/* Header */}
-      <header className="mb-12">
-        <div className="flex flex-wrap gap-2 mb-4">
-          {post.metadata.tags.map((tag) => (
-            <span
-              key={tag}
-              className="px-3 py-1 bg-light-card dark:bg-dark-card rounded-lg text-sm font-medium"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
-        <h1 className="font-display text-5xl md:text-6xl font-bold mb-6 text-balance">
-          {post.metadata.title}
-        </h1>
-        <div className="flex items-center gap-4 text-zinc-600 dark:text-zinc-400">
-          <span>{post.metadata.author}</span>
-          <span>•</span>
-          <time dateTime={post.metadata.date}>
-            {new Date(post.metadata.date).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </time>
-          <span>•</span>
-          <span>{post.metadata.readTime}</span>
-        </div>
-      </header>
+  const jsonLd = generateJsonLd(post, params.slug);
 
-      {/* Content */}
-      <div
-        className="prose prose-zinc dark:prose-invert prose-lg max-w-none
+  return (
+    <>
+      {/* JSON-LD Structured Data */}
+      {jsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      )}
+      <article className="px-6 py-16 max-w-3xl mx-auto">
+        {/* Header */}
+        <header className="mb-12">
+          <div className="flex flex-wrap gap-2 mb-4">
+            {post.metadata.tags.map((tag) => (
+              <span
+                key={tag}
+                className="px-3 py-1 bg-light-card dark:bg-dark-card rounded-lg text-sm font-medium"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+          <h1 className="font-display text-5xl md:text-6xl font-bold mb-6 text-balance">
+            {post.metadata.title}
+          </h1>
+          <div className="flex items-center gap-4 text-zinc-600 dark:text-zinc-400">
+            <span>{post.metadata.author}</span>
+            <span>•</span>
+            <time dateTime={post.metadata.date}>
+              {new Date(post.metadata.date).toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </time>
+            <span>•</span>
+            <span>{post.metadata.readTime}</span>
+          </div>
+        </header>
+
+        {/* Content */}
+        <div
+          className="prose prose-zinc dark:prose-invert prose-lg max-w-none
         prose-headings:font-display prose-headings:font-bold
         prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
         prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
@@ -90,20 +140,21 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
         prose-pre:bg-dark-card prose-pre:border prose-pre:border-dark-border
         prose-blockquote:border-l-accent-primary prose-blockquote:italic
         prose-img:rounded-xl"
-      >
-        <MDXRemote source={post.content} />
-      </div>
+        >
+          <MDXRemote source={post.content} />
+        </div>
 
-      {/* Share Section */}
-      <div className="mt-16 pt-8 border-t border-light-border dark:border-dark-border">
-        <ShareButtons
-          url={`https://www.codedbygk.tech/blog/${post.slug}`}
-          title={post.metadata.title}
-        />
-      </div>
+        {/* Share Section */}
+        <div className="mt-16 pt-8 border-t border-light-border dark:border-dark-border">
+          <ShareButtons
+            url={`https://www.codedbygk.tech/blog/${post.slug}`}
+            title={post.metadata.title}
+          />
+        </div>
 
-      {/* Comments Section */}
-      <Comments postSlug={params.slug} />
-    </article>
+        {/* Comments Section */}
+        <Comments postSlug={params.slug} />
+      </article>
+    </>
   );
 }
