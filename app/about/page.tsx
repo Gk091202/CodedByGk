@@ -9,27 +9,27 @@ export default function AboutPage() {
   return (
     <div className="px-6 py-16 max-w-3xl mx-auto">
       <h1 className="font-display text-5xl md:text-6xl font-bold mb-8">
-        Hey, I'm Alex
+        Hey, I'm Gaurav
       </h1>
 
       <div className="space-y-6 text-lg text-zinc-700 dark:text-zinc-300">
         <p>
           Welcome to my corner of the internet. This is where I share thoughts
-          on tech, culture, and whatever's currently living rent-free in my
-          head.
+          on tech, career, and everything that's shaping the future of software
+          development.
         </p>
 
         <p>
-          I'm a software engineer by day, chronic overthinker by night. Been
-          building things on the web since I convinced my parents that "making
-          websites" was a real career path. Spoiler: they were skeptical, but
-          here we are.
+          I'm a developer passionate about building real solutions and sharing
+          insights about what it actually takes to succeed in tech. No fluff,
+          just honest takes on development, career growth, and the challenges we
+          all face in this industry.
         </p>
 
         <p>
-          When I'm not coding or writing, you'll find me experimenting with new
-          frameworks, doom-scrolling design inspiration, or having strong
-          opinions about typography that nobody asked for.
+          When I'm not coding or writing, you'll find me exploring new
+          technologies, working on projects that solve real problems, and
+          sharing what I learn along the way.
         </p>
 
         <div className="pt-8">
@@ -37,11 +37,11 @@ export default function AboutPage() {
             What I'm about
           </h2>
           <ul className="space-y-2 list-disc list-inside">
-            <li>Building products that don't suck</li>
-            <li>Writing that's actually readable</li>
-            <li>Dark mode everything</li>
-            <li>Clean code and cleaner design</li>
-            <li>Learning in public</li>
+            <li>Building products that solve real problems</li>
+            <li>Writing honest takes about tech and career</li>
+            <li>Sharing knowledge and learning in public</li>
+            <li>Clean code and practical solutions</li>
+            <li>Helping developers navigate their careers</li>
           </ul>
         </div>
 
@@ -74,15 +74,26 @@ export default function AboutPage() {
             Let's connect
           </h2>
           <p>
-            Always down to chat about projects, ideas, or why your favorite
-            framework is objectively wrong (kidding... mostly). Hit me up on{" "}
+            Always down to chat about projects, ideas, or career advice. Hit me
+            up on{" "}
             <a
-              href="#"
+              href="https://x.com/Ko4Gaurav"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-accent-primary hover:text-accent-primary/80 transition-colors"
             >
-              Twitter
-            </a>{" "}
-            or drop a message on the{" "}
+              X
+            </a>
+            ,{" "}
+            <a
+              href="https://www.linkedin.com/in/gaurav-koli-34400522a/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent-primary hover:text-accent-primary/80 transition-colors"
+            >
+              LinkedIn
+            </a>
+            , or drop a message on the{" "}
             <a
               href="/contact"
               className="text-accent-primary hover:text-accent-primary/80 transition-colors"
