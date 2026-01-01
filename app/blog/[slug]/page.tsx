@@ -3,6 +3,7 @@ import { getBlogPosts, getPostBySlug } from "@/lib/blog";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import ShareButtons from "@/components/ShareButtons";
 import Comments from "@/components/Comments";
+import ReadingProgress from "@/components/ReadingProgress";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -87,6 +88,9 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
 
   return (
     <>
+      {/* Reading Progress Bar */}
+      <ReadingProgress />
+
       {/* JSON-LD Structured Data */}
       {jsonLd && (
         <script
