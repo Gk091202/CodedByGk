@@ -7,6 +7,7 @@ A modern, minimalist blog built with Next.js 14, Tailwind CSS, and MDX. Dark mod
 - **Framework**: Next.js 14 (App Router)
 - **Styling**: Tailwind CSS
 - **Content**: MDX
+- **Backend**: Appwrite (Auth, Database)
 - **Fonts**: Inter + Space Grotesk
 - **Deployment**: Vercel
 
@@ -71,6 +72,65 @@ tags: ["tag1", "tag2"]
 Your content here...
 ```
 
+### 4. Set Up Appwrite
+
+#### Create Appwrite Project
+
+1. Go to [cloud.appwrite.io](https://cloud.appwrite.io) and create an account
+2. Create a new project
+3. Copy your Project ID
+
+#### Create Database & Collections
+
+1. In your Appwrite project, go to **Databases** → Create Database
+2. Note the Database ID
+
+**Newsletter Collection:**
+
+- Collection ID: `newsletter`
+- Attributes:
+  - `email` (String, Required)
+  - `name` (String, Optional)
+  - `subscribedAt` (String, Required)
+- Permissions:
+  - Create: Any
+  - Read: Role:all (or Admin only)
+
+**Comments Collection:**
+
+- Collection ID: `comments`
+- Attributes:
+  - `postSlug` (String, Required)
+  - `content` (String, Required)
+  - `userId` (String, Required)
+  - `userName` (String, Required)
+  - `createdAt` (String, Required)
+- Permissions:
+  - Create: Users
+  - Read: Any
+  - Update: Creator & Admin
+  - Delete: Creator & Admin
+
+#### Configure Environment Variables
+
+1. Copy `.env.local.example` to `.env.local`
+2. Fill in your Appwrite credentials:
+
+```bash
+NEXT_PUBLIC_APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
+NEXT_PUBLIC_APPWRITE_PROJECT_ID=your-project-id
+NEXT_PUBLIC_APPWRITE_DATABASE_ID=your-database-id
+NEXT_PUBLIC_APPWRITE_NEWSLETTER_COLLECTION_ID=newsletter
+NEXT_PUBLIC_APPWRITE_COMMENTS_COLLECTION_ID=comments
+```
+
+#### Set Up Admin User
+
+1. In Appwrite Console, go to **Auth** → **Users**
+2. Create or select a user
+3. Go to **Labels** and add `admin` label
+4. This user will have admin access to the dashboard at `/admin`
+
 ## Deploy to Vercel (3 Steps)
 
 ### Step 1: Push to GitHub
@@ -120,6 +180,86 @@ Edit `app/layout.tsx` - swap Inter/Space Grotesk for any Google Font.
 
 In Vercel dashboard: Settings → Domains → Add your custom domain.
 
+## Appwrite Features
+
+### Newsletter
+
+- Newsletter signup form on home page
+- Email validation and duplicate checking
+- Stores subscribers in Appwrite database
+
+### Authentication
+
+- Login/Signup modal in navigation
+- Email + password authentication
+- Session management
+- Protected routes for premium content
+- Admin role-based access control
+
+### Comments
+
+- Comment on any blog post (requires login)
+- View all comments in real-time
+- Delete own comments
+- Admins can delete any comment
+
+### Admin Dashboard
+
+- Access at `/admin` (requires admin label)
+- View statistics (extend as needed)
+- Manage users and content
+- Role-based access control
+
+## Usage
+
+### Making a Post Premium
+
+To restrict a blog post to logged-in users:
+
+```tsx
+// In app/blog/[slug]/page.tsx or create a wrapper component
+"use client";
+import { useAuth } from "@/components/AuthProvider";
+
+export default function PremiumPost() {
+  const { user } = useAuth();
+
+  if (!user) {
+    return (
+      <div className="text-center py-12">
+        <p>Please login to read this premium post</p>
+      </div>
+    );
+  }
+
+  return <div>Premium content here...</div>;
+}
+```
+
+### Checking Admin Access
+
+```tsx
+import { useAuth } from "@/components/AuthProvider";
+
+export default function SomeComponent() {
+  const { isAdmin } = useAuth();
+
+  return isAdmin ? <AdminControls /> : null;
+}
+```
+
+## Environment Variables
+
+Required for Appwrite integration:
+
+```bash
+NEXT_PUBLIC_APPWRITE_ENDPOINT=https://cloud.appwrite.io/v1
+NEXT_PUBLIC_APPWRITE_PROJECT_ID=your-project-id
+NEXT_PUBLIC_APPWRITE_DATABASE_ID=your-database-id
+NEXT_PUBLIC_APPWRITE_NEWSLETTER_COLLECTION_ID=newsletter
+NEXT_PUBLIC_APPWRITE_COMMENTS_COLLECTION_ID=comments
+```
+
 ## Features
 
 - ✅ Server-side rendering
@@ -133,6 +273,10 @@ In Vercel dashboard: Settings → Domains → Add your custom domain.
 - ✅ MDX support with syntax highlighting
 - ✅ Share buttons
 - ✅ Zero JavaScript required for content
+- ✅ **Newsletter signup with Appwrite**
+- ✅ **User authentication for premium content**
+- ✅ **Comments system on blog posts**
+- ✅ **Admin dashboard with role-based access**
 
 ## Performance
 

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { AuthProvider } from "@/components/AuthProvider";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 
@@ -48,11 +49,13 @@ export default function RootLayout({
         className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}
       >
         <ThemeProvider>
-          <div className="min-h-screen bg-light-bg dark:bg-dark-bg text-zinc-900 dark:text-zinc-100 transition-colors">
-            <Navigation />
-            <main className="pt-20">{children}</main>
-            <Footer />
-          </div>
+          <AuthProvider>
+            <div className="min-h-screen bg-light-bg dark:bg-dark-bg text-zinc-900 dark:text-zinc-100 transition-colors">
+              <Navigation />
+              <main className="pt-20">{children}</main>
+              <Footer />
+            </div>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

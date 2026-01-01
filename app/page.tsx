@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getBlogPosts } from "@/lib/blog";
 import BlogCard from "@/components/BlogCard";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -62,20 +63,23 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="px-6 py-32 max-w-5xl mx-auto">
-        <div className="bg-gradient-to-br from-accent-primary to-accent-secondary p-12 rounded-2xl text-white">
-          <h2 className="font-display text-4xl font-bold mb-4">
-            Stay in the loop
-          </h2>
-          <p className="text-lg text-white/90 mb-6 max-w-xl">
-            New posts every week. No spam, no cringe, just quality content
-            straight to your feed.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-block px-6 py-3 bg-white text-accent-primary hover:bg-white/90 rounded-lg font-medium transition-colors"
-          >
-            Get in touch
-          </Link>
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* Newsletter Signup */}
+          <NewsletterSignup />
+
+          {/* CTA Card */}
+          <div className="bg-gradient-to-br from-accent-primary to-accent-secondary p-8 rounded-lg text-white flex flex-col justify-center">
+            <h3 className="text-2xl font-bold mb-3">Stay in the loop</h3>
+            <p className="text-white/90 mb-4">
+              New posts every week. No spam, no cringe, just quality content.
+            </p>
+            <Link
+              href="/contact"
+              className="inline-block px-6 py-3 bg-white text-accent-primary hover:bg-white/90 rounded-lg font-medium transition-colors w-fit"
+            >
+              Get in touch
+            </Link>
+          </div>
         </div>
       </section>
 

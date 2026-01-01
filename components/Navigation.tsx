@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import ThemeToggle from "./ThemeToggle";
+import AuthButton from "./AuthButton";
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -39,6 +40,7 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
+            <AuthButton />
             <ThemeToggle />
           </div>
 
@@ -101,6 +103,9 @@ export default function Navigation() {
                   {link.label}
                 </Link>
               ))}
+              <div className="pt-2 border-t border-light-border dark:border-dark-border">
+                <AuthButton />
+              </div>
             </div>
           </div>
         )}

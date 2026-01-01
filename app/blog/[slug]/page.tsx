@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getBlogPosts, getPostBySlug } from "@/lib/blog";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import ShareButtons from "@/components/ShareButtons";
+import Comments from "@/components/Comments";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -100,6 +101,9 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
           title={post.metadata.title}
         />
       </div>
+
+      {/* Comments Section */}
+      <Comments postSlug={params.slug} />
     </article>
   );
 }
