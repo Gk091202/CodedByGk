@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import BlogCard from "./BlogCard";
+import SearchBar from "./SearchBar";
 
 interface BlogPost {
   slug: string;
@@ -30,9 +31,11 @@ export default function BlogList({ posts }: { posts: BlogPost[] }) {
     <>
       <div className="mb-12">
         <h1 className="font-display text-5xl font-bold mb-4">All posts</h1>
-        <p className="text-xl text-zinc-600 dark:text-zinc-400">
+        <p className="text-xl text-zinc-600 dark:text-zinc-400 mb-6">
           {filteredPosts.length} {filteredPosts.length === 1 ? "post" : "posts"}
         </p>
+        {/* Search Bar */}
+        <SearchBar posts={posts} />
       </div>
 
       {/* Tag Filter */}

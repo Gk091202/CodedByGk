@@ -4,6 +4,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import ShareButtons from "@/components/ShareButtons";
 import Comments from "@/components/Comments";
 import ReadingProgress from "@/components/ReadingProgress";
+import RelatedPosts from "@/components/RelatedPosts";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -155,6 +156,12 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
             title={post.metadata.title}
           />
         </div>
+
+        {/* Related Posts */}
+        <RelatedPosts
+          currentSlug={post.slug}
+          currentTags={post.metadata.tags}
+        />
 
         {/* Comments Section */}
         <Comments postSlug={params.slug} />
