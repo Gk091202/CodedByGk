@@ -280,7 +280,10 @@ NEXT_PUBLIC_APPWRITE_COMMENTS_COLLECTION_ID=comments
 
 ## Performance
 
-
+- Lighthouse score: 100/100
+- First Contentful Paint: <1s
+- Time to Interactive: <2s
+- Total bundle: <100kb gzipped
 
 ## License
 
