@@ -5,7 +5,12 @@ import NewsletterSignup from "@/components/NewsletterSignup";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Web Development Blog",
+  description:
+    "Practical web development articles, coding advice, and career insights for developers who want useful answers, not hype.",
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function Home() {

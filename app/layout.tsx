@@ -16,12 +16,15 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",
 });
 
+const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION;
+
 export const metadata: Metadata = {
   title: {
     default: "CodedByGK - Tech Blog",
     template: "%s | CodedByGK",
   },
-  description: "Real talk, hot takes, and everything in between",
+  description:
+    "A developer blog about web development, career growth, practical coding advice, and honest takes on the modern tech stack.",
   metadataBase: new URL("https://www.codedbygk.tech"),
   alternates: {
     canonical: "/",
@@ -41,7 +44,8 @@ export const metadata: Metadata = {
   creator: "GK",
   openGraph: {
     title: "CodedByGK - Tech Blog",
-    description: "Real talk, hot takes, and everything in between",
+    description:
+      "A developer blog about web development, career growth, practical coding advice, and honest takes on the modern tech stack.",
     type: "website",
     locale: "en_US",
     siteName: "CodedByGK",
@@ -49,7 +53,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "CodedByGK - Tech Blog",
-    description: "Real talk, hot takes, and everything in between",
+    description:
+      "A developer blog about web development, career growth, practical coding advice, and honest takes on the modern tech stack.",
   },
   robots: {
     index: true,
@@ -63,8 +68,7 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    // Add your verification codes here when you have them
-    // google: "your-google-verification-code",
+    google: googleSiteVerification,
     // yandex: "your-yandex-verification-code",
   },
 };
@@ -74,16 +78,12 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "CodedByGK",
-  description: "Real talk, hot takes, and everything in between",
+  description:
+    "A developer blog about web development, career growth, practical coding advice, and honest takes on the modern tech stack.",
   url: "https://www.codedbygk.tech",
   author: {
     "@type": "Person",
     name: "GK",
-  },
-  potentialAction: {
-    "@type": "SearchAction",
-    target: "https://www.codedbygk.tech/blog?q={search_term_string}",
-    "query-input": "required name=search_term_string",
   },
 };
 
