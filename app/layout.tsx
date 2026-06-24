@@ -16,7 +16,9 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-space",
 });
 
-const googleSiteVerification = process.env.GOOGLE_SITE_VERIFICATION;
+const googleSiteVerification =
+  process.env.GOOGLE_SITE_VERIFICATION ??
+  "3OeXJg9f7iYAgw2mCh9KL2fNhQD7i6Hu9PjjQwDFhPg";
 
 export const metadata: Metadata = {
   title: {
