@@ -1,0 +1,19 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1600" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset="1" stop-color="#020617"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1280" cy="180" r="270" fill="#38BDF8" fill-opacity="0.14"/>
+  <circle cx="260" cy="720" r="290" fill="#22C55E" fill-opacity="0.12"/>
+  <rect x="150" y="150" width="700" height="26" rx="13" fill="#E2E8F0" fill-opacity="0.95"/>
+  <rect x="150" y="196" width="870" height="26" rx="13" fill="#E2E8F0" fill-opacity="0.72"/>
+  <text x="150" y="360" fill="#F8FAFC" font-family="Inter, Arial, sans-serif" font-size="76" font-weight="700">CodedByGK</text>
+  <text x="150" y="420" fill="#CBD5E1" font-family="Inter, Arial, sans-serif" font-size="30" font-weight="500">Hot Take: You Don't Need That Framework</text>
+  <rect x="150" y="500" width="1280" height="220" rx="36" fill="#020617" fill-opacity="0.42" stroke="#94A3B8" stroke-opacity="0.18"/>
+  <rect x="220" y="560" width="1140" height="18" rx="9" fill="#38BDF8"/>
+  <rect x="220" y="606" width="930" height="18" rx="9" fill="#22C55E"/>
+  <rect x="220" y="652" width="760" height="18" rx="9" fill="#A78BFA"/>
+</svg>

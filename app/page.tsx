@@ -1,13 +1,32 @@
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { getBlogPosts } from "@/lib/blog";
 import BlogCard from "@/components/BlogCard";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import { topicHubs } from "@/lib/topics";
 import type { Metadata } from "next";
 
+const QuizGeneratorSection = dynamic(
+  () => import("@/components/quiz/QuizGeneratorSection"),
+  {
+    ssr: false,
+    loading: () => (
+      <section className="px-6 py-16 max-w-5xl mx-auto">
+        <div className="rounded-3xl border border-white/10 bg-white/10 p-6 backdrop-blur-xl dark:border-white/10 dark:bg-white/5">
+          <div className="h-6 w-40 animate-pulse rounded-full bg-zinc-300/60 dark:bg-zinc-700/60" />
+          <div className="mt-4 h-4 w-80 animate-pulse rounded-full bg-zinc-300/60 dark:bg-zinc-700/60" />
+          <div className="mt-8 h-56 animate-pulse rounded-3xl bg-zinc-300/60 dark:bg-zinc-700/60" />
+        </div>
+      </section>
+    ),
+  },
+);
+
 export const metadata: Metadata = {
-  title: "Web Development Blog",
+  title:
+    "Web Development Blog | Coding Career Advice and Frontend Best Practices",
   description:
-    "Practical web development articles, coding advice, and career insights for developers who want useful answers, not hype.",
+    "A web development blog with coding career advice, interview prep, and frontend best practices for developers who want useful answers, not hype.",
   alternates: {
     canonical: "/",
   },
@@ -20,16 +39,17 @@ export default function Home() {
     <>
       {/* Hero Section */}
       <section className="px-6 py-32 max-w-5xl mx-auto">
-        <div className="space-y-6">
+        <div className="space-y-6 max-w-3xl">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-primary">
+            Web development blog
+          </p>
           <h1 className="font-display text-6xl md:text-7xl font-bold tracking-tight text-balance">
-            No cap, just{" "}
-            <span className="bg-gradient-to-r from-accent-primary to-accent-secondary bg-clip-text text-transparent">
-              real talk
-            </span>
+            Web development blog with coding career advice and frontend best
+            practices
           </h1>
-          <p className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 max-w-2xl text-balance">
-            Thoughts on tech, culture, and everything that hits different.
-            Updated when the vibes are immaculate.
+          <p className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 text-balance">
+            Practical guides on building web apps, improving your coding skills,
+            and growing your developer career with search-focused content.
           </p>
           <div className="flex gap-4 pt-4">
             <Link
@@ -51,7 +71,9 @@ export default function Home() {
       {/* Featured Posts */}
       <section className="px-6 py-16 max-w-5xl mx-auto">
         <div className="flex justify-between items-end mb-8">
-          <h2 className="font-display text-3xl font-bold">Latest drops</h2>
+          <h2 className="font-display text-3xl font-bold">
+            Latest web development posts
+          </h2>
           <Link
             href="/blog"
             className="text-accent-primary hover:text-accent-primary/80 font-medium transition-colors"
@@ -66,6 +88,50 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Topic Hubs */}
+      <section className="px-6 py-16 max-w-5xl mx-auto">
+        <div className="flex justify-between items-end mb-8">
+          <div>
+            <h2 className="font-display text-3xl font-bold">Topic hubs</h2>
+            <p className="text-zinc-600 dark:text-zinc-400 mt-2">
+              Browse focused clusters for web development, coding career advice,
+              and frontend best practices.
+            </p>
+          </div>
+          <Link
+            href="/topics"
+            className="text-accent-primary hover:text-accent-primary/80 font-medium transition-colors"
+          >
+            View all hubs →
+          </Link>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          {topicHubs.map((topic) => (
+            <Link
+              key={topic.slug}
+              href={`/topics/${topic.slug}`}
+              className="group rounded-2xl border border-light-border dark:border-dark-border bg-light-card dark:bg-dark-card p-6 transition-all hover:border-accent-primary"
+            >
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-primary mb-3">
+                {topic.title}
+              </p>
+              <h3 className="font-display text-2xl font-bold mb-3 group-hover:text-accent-primary transition-colors">
+                {topic.description}
+              </h3>
+              <p className="text-zinc-600 dark:text-zinc-400 mb-4">
+                {topic.intro}
+              </p>
+              <span className="inline-flex items-center gap-2 text-sm font-medium text-accent-primary">
+                Explore hub <span>→</span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* AI Quiz Generator */}
+      <QuizGeneratorSection />
+
       {/* CTA Section */}
       <section className="px-6 py-32 max-w-5xl mx-auto">
         <div className="grid md:grid-cols-2 gap-8">
@@ -76,7 +142,8 @@ export default function Home() {
           <div className="bg-gradient-to-br from-accent-primary to-accent-secondary p-8 rounded-lg text-white flex flex-col justify-center">
             <h3 className="text-2xl font-bold mb-3">Stay in the loop</h3>
             <p className="text-white/90 mb-4">
-              New posts every week. No spam, no cringe, just quality content.
+              New posts every week on web development, coding career advice,
+              coding practice, and frontend best practices.
             </p>
             <Link
               href="/contact"
@@ -85,181 +152,6 @@ export default function Home() {
               Get in touch
             </Link>
           </div>
-        </div>
-      </section>
-
-      {/* Resources Section */}
-      <section className="px-6 py-16 max-w-5xl mx-auto">
-        <div className="flex justify-between items-end mb-8">
-          <div>
-            <h2 className="font-display text-3xl font-bold">Free Resources</h2>
-            <p className="text-zinc-600 dark:text-zinc-400 mt-2">
-              Helpful guides and cheat sheets to level up your skills
-            </p>
-          </div>
-        </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Resource Card 1 */}
-          <a
-            href="/pdfs/resource-1.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group h-full p-6 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl hover:border-accent-primary dark:hover:border-accent-primary transition-all"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-1 bg-light-bg dark:bg-dark-bg rounded text-xs font-medium">
-                PDF
-              </span>
-              <span className="px-2 py-1 bg-accent-primary/10 text-accent-primary rounded text-xs font-medium">
-                Guide
-              </span>
-            </div>
-            <h3 className="font-display text-xl font-bold mb-2 group-hover:text-accent-primary transition-colors">
-              JavaScript Essentials
-            </h3>
-            <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">
-              Complete guide to modern JavaScript concepts and best practices
-            </p>
-            <div className="flex items-center gap-2 text-sm text-accent-primary">
-              <span>Download PDF</span>
-              <span>→</span>
-            </div>
-          </a>
-
-          {/* Resource Card 2 */}
-          <a
-            href="/pdfs/resource-2.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group h-full p-6 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl hover:border-accent-primary dark:hover:border-accent-primary transition-all"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-1 bg-light-bg dark:bg-dark-bg rounded text-xs font-medium">
-                PDF
-              </span>
-              <span className="px-2 py-1 bg-accent-secondary/10 text-accent-secondary rounded text-xs font-medium">
-                Cheat Sheet
-              </span>
-            </div>
-            <h3 className="font-display text-xl font-bold mb-2 group-hover:text-accent-primary transition-colors">
-              React Hooks Reference
-            </h3>
-            <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">
-              Quick reference guide for all React hooks with examples
-            </p>
-            <div className="flex items-center gap-2 text-sm text-accent-primary">
-              <span>Download PDF</span>
-              <span>→</span>
-            </div>
-          </a>
-
-          {/* Resource Card 3 */}
-          <a
-            href="/pdfs/resource-3.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group h-full p-6 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl hover:border-accent-primary dark:hover:border-accent-primary transition-all"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-1 bg-light-bg dark:bg-dark-bg rounded text-xs font-medium">
-                PDF
-              </span>
-              <span className="px-2 py-1 bg-accent-primary/10 text-accent-primary rounded text-xs font-medium">
-                Tutorial
-              </span>
-            </div>
-            <h3 className="font-display text-xl font-bold mb-2 group-hover:text-accent-primary transition-colors">
-              Git & GitHub Workflow
-            </h3>
-            <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">
-              Master version control with this comprehensive workflow guide
-            </p>
-            <div className="flex items-center gap-2 text-sm text-accent-primary">
-              <span>Download PDF</span>
-              <span>→</span>
-            </div>
-          </a>
-
-          {/* Resource Card 4 */}
-          <a
-            href="/pdfs/resource-4.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group h-full p-6 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl hover:border-accent-primary dark:hover:border-accent-primary transition-all"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-1 bg-light-bg dark:bg-dark-bg rounded text-xs font-medium">
-                PDF
-              </span>
-              <span className="px-2 py-1 bg-accent-secondary/10 text-accent-secondary rounded text-xs font-medium">
-                Cheat Sheet
-              </span>
-            </div>
-            <h3 className="font-display text-xl font-bold mb-2 group-hover:text-accent-primary transition-colors">
-              CSS Flexbox & Grid
-            </h3>
-            <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">
-              Visual guide to modern CSS layout techniques with examples
-            </p>
-            <div className="flex items-center gap-2 text-sm text-accent-primary">
-              <span>Download PDF</span>
-              <span>→</span>
-            </div>
-          </a>
-
-          {/* Resource Card 5 */}
-          <a
-            href="/pdfs/resource-5.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group h-full p-6 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl hover:border-accent-primary dark:hover:border-accent-primary transition-all"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-1 bg-light-bg dark:bg-dark-bg rounded text-xs font-medium">
-                PDF
-              </span>
-              <span className="px-2 py-1 bg-accent-primary/10 text-accent-primary rounded text-xs font-medium">
-                Guide
-              </span>
-            </div>
-            <h3 className="font-display text-xl font-bold mb-2 group-hover:text-accent-primary transition-colors">
-              TypeScript Fundamentals
-            </h3>
-            <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">
-              Everything you need to start using TypeScript in your projects
-            </p>
-            <div className="flex items-center gap-2 text-sm text-accent-primary">
-              <span>Download PDF</span>
-              <span>→</span>
-            </div>
-          </a>
-
-          {/* Resource Card 6 */}
-          <a
-            href="/pdfs/resource-6.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group h-full p-6 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl hover:border-accent-primary dark:hover:border-accent-primary transition-all"
-          >
-            <div className="flex items-center gap-2 mb-3">
-              <span className="px-2 py-1 bg-light-bg dark:bg-dark-bg rounded text-xs font-medium">
-                PDF
-              </span>
-              <span className="px-2 py-1 bg-accent-secondary/10 text-accent-secondary rounded text-xs font-medium">
-                Tutorial
-              </span>
-            </div>
-            <h3 className="font-display text-xl font-bold mb-2 group-hover:text-accent-primary transition-colors">
-              Next.js Best Practices
-            </h3>
-            <p className="text-zinc-600 dark:text-zinc-400 text-sm mb-4">
-              Build better Next.js apps with proven patterns and techniques
-            </p>
-            <div className="flex items-center gap-2 text-sm text-accent-primary">
-              <span>Download PDF</span>
-              <span>→</span>
-            </div>
-          </a>
         </div>
       </section>
     </>

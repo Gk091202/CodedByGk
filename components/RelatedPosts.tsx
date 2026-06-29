@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getBlogPosts, BlogPost } from "@/lib/blog";
 
 interface RelatedPostsProps {
@@ -17,7 +18,7 @@ export default function RelatedPosts({
     .filter((post) => post.slug !== currentSlug)
     .map((post) => {
       const matchingTags = post.metadata.tags.filter((tag) =>
-        currentTags.includes(tag)
+        currentTags.includes(tag),
       );
       return {
         ...post,
@@ -50,6 +51,16 @@ export default function RelatedPosts({
           >
             <div className="flex justify-between items-start gap-4">
               <div className="flex-1">
+                <div className="mb-3 overflow-hidden rounded-lg border border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg">
+                  <Image
+                    src={post.metadata.image ?? "/blog-cover.svg"}
+                    alt={post.metadata.title}
+                    width={1200}
+                    height={630}
+                    className="h-32 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
                 <h4 className="font-medium text-zinc-900 dark:text-zinc-100 group-hover:text-accent-primary transition-colors">
                   {post.metadata.title}
                 </h4>

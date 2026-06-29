@@ -15,6 +15,7 @@ export interface BlogPost {
     author: string;
     tags: string[];
     readTime: string;
+    image?: string;
   };
   content: string;
 }
@@ -43,6 +44,7 @@ export const getBlogPosts = cache((): BlogPost[] => {
           author: data.author,
           tags: data.tags || [],
           readTime: stats.text,
+          image: data.image,
         },
         content,
       };
@@ -71,6 +73,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
         author: data.author,
         tags: data.tags || [],
         readTime: stats.text,
+        image: data.image,
       },
       content,
     };

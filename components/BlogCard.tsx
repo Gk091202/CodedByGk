@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 interface BlogPost {
   slug: string;
@@ -9,13 +10,26 @@ interface BlogPost {
     author: string;
     tags: string[];
     readTime: string;
+    image?: string;
   };
 }
+
+const defaultCoverImage = "/blog-cover.svg";
 
 export default function BlogCard({ post }: { post: BlogPost }) {
   return (
     <Link href={`/blog/${post.slug}`}>
       <article className="group h-full p-6 bg-light-card dark:bg-dark-card border border-light-border dark:border-dark-border rounded-xl hover:border-accent-primary dark:hover:border-accent-primary transition-all">
+        <div className="mb-4 overflow-hidden rounded-xl border border-light-border dark:border-dark-border bg-light-bg dark:bg-dark-bg">
+          <Image
+            src={post.metadata.image ?? defaultCoverImage}
+            alt={post.metadata.title}
+            width={1200}
+            height={630}
+            className="h-48 w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            sizes="(max-width: 768px) 100vw, 33vw"
+          />
+        </div>
         <div className="flex flex-wrap gap-2 mb-3">
           {post.metadata.tags.slice(0, 2).map((tag) => (
             <span

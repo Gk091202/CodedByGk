@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation";
 import { getBlogPosts, getPostBySlug } from "@/lib/blog";
+import Image from "next/image";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import ShareButtons from "@/components/ShareButtons";
 import Comments from "@/components/Comments";
 import ReadingProgress from "@/components/ReadingProgress";
 import RelatedPosts from "@/components/RelatedPosts";
 import type { Metadata } from "next";
+import { getTopicHubForTags } from "@/lib/topics";
 
 export async function generateStaticParams() {
   const posts = getBlogPosts();
@@ -40,11 +42,17 @@ export async function generateMetadata({
       publishedTime: post.metadata.date,
       authors: [post.metadata.author],
       url: url,
+      images: [
+        post.metadata.image ?? "https://www.codedbygk.tech/blog-cover.svg",
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.metadata.title,
       description: post.metadata.description,
+      images: [
+        post.metadata.image ?? "https://www.codedbygk.tech/blog-cover.svg",
+      ],
     },
   };
 }
@@ -52,6 +60,8 @@ export async function generateMetadata({
 // JSON-LD structured data for blog posts
 function generateJsonLd(post: ReturnType<typeof getPostBySlug>, slug: string) {
   if (!post) return null;
+
+  const topic = getTopicHubForTags(post.metadata.tags);
 
   return {
     "@context": "https://schema.org",
@@ -75,6 +85,60 @@ function generateJsonLd(post: ReturnType<typeof getPostBySlug>, slug: string) {
       "@id": `https://www.codedbygk.tech/blog/${slug}`,
     },
     keywords: post.metadata.tags.join(", "),
+    image: post.metadata.image ?? "https://www.codedbygk.tech/blog-cover.svg",
+    breadcrumb: topic
+      ? {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://www.codedbygk.tech",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Topics",
+              item: "https://www.codedbygk.tech/topics",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: topic.title,
+              item: `https://www.codedbygk.tech/topics/${topic.slug}`,
+            },
+            {
+              "@type": "ListItem",
+              position: 4,
+              name: post.metadata.title,
+              item: `https://www.codedbygk.tech/blog/${slug}`,
+            },
+          ],
+        }
+      : {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: "https://www.codedbygk.tech",
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Blog",
+              item: "https://www.codedbygk.tech/blog",
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: post.metadata.title,
+              item: `https://www.codedbygk.tech/blog/${slug}`,
+            },
+          ],
+        },
   };
 }
 
@@ -102,15 +166,16 @@ export default function BlogPost({ params }: { params: { slug: string } }) {
       <article className="px-6 py-16 max-w-3xl mx-auto">
         {/* Header */}
         <header className="mb-12">
-          <div className="flex flex-wrap gap-2 mb-4">
-            {post.metadata.tags.map((tag) => (
-              <span
-                key={tag}
-                className="px-3 py-1 bg-light-card dark:bg-dark-card rounded-lg text-sm font-medium"
-              >
-                {tag}
-              </span>
-            ))}
+          <div className="mb-8 overflow-hidden rounded-2xl border border-light-border dark:border-dark-border bg-light-card dark:bg-dark-card">
+            <Image
+              src={post.metadata.image ?? "/blog-cover.svg"}
+              alt={post.metadata.title}
+              width={1600}
+              height={900}
+              className="h-auto w-full object-cover"
+              priority
+              sizes="(max-width: 768px) 100vw, 768px"
+            />
           </div>
           <h1 className="font-display text-5xl md:text-6xl font-bold mb-6 text-balance">
             {post.metadata.title}
