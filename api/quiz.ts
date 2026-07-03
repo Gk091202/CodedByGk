@@ -156,7 +156,7 @@ function normalizeQuizQuestion(value: unknown): QuizQuestion | null {
     typeof value.explanation === "string" ? value.explanation.trim() : "";
   const answer = parseAnswerIndex(value.answer);
 
-  if (!question || !explanation || answer === null) {
+  if (!question || answer === null) {
     return null;
   }
 
@@ -182,7 +182,7 @@ function normalizeQuizQuestion(value: unknown): QuizQuestion | null {
     question,
     options: options as [string, string, string, string],
     answer,
-    explanation,
+    explanation: explanation || "No explanation provided.",
   };
 }
 

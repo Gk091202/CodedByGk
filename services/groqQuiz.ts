@@ -112,18 +112,23 @@ export async function generateGroqQuiz(
     const parsedQuiz = parseQuizJson(content);
     if (!parsedQuiz) {
       lastError = "Groq returned malformed JSON.";
+      console.error(`[Quiz] Malformed JSON from ${model}: ${content.slice(0, 200)}`);
       continue;
     }
+
+    console.log(`[Quiz] Parsed quiz from ${model}: ${JSON.stringify(parsedQuiz).slice(0, 300)}`);
 
     const normalizedQuiz = normalizeQuizPayload(
       parsedQuiz,
       request.numberOfQuestions,
     );
     if (!normalizedQuiz.ok) {
-      lastError = `${normalizedQuiz.error} Raw response: ${JSON.stringify(parsedQuiz).slice(0, 500)}`;
+      lastError = normalizedQuiz.error;
+      console.error(`[Quiz] Validation failed: ${normalizedQuiz.error}`);
       continue;
     }
 
+    console.log(`[Quiz] Successfully generated ${normalizedQuiz.value.questions.length} valid questions from ${model}`);
     return normalizedQuiz.value;
   }
 
