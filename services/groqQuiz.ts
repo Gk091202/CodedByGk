@@ -120,7 +120,7 @@ export async function generateGroqQuiz(
       request.numberOfQuestions,
     );
     if (!normalizedQuiz.ok) {
-      lastError = normalizedQuiz.error;
+      lastError = `${normalizedQuiz.error} Raw response: ${JSON.stringify(parsedQuiz).slice(0, 500)}`;
       continue;
     }
 
